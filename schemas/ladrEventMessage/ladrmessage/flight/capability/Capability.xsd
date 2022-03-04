@@ -77,6 +77,23 @@ c) where applicable, authorization from the appropriate authority.
 					<xs:documentation>The serviceable communications equipment, available on the aircraft at the time of flight, and associated flight crew qualifications that may be used to communicate with ATS units. [FIXM]</xs:documentation>
 				</xs:annotation>
 			</xs:element>
+			<xs:element name="survival" type="fx:SurvivalCapabilitiesType" nillable="true" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>The emergency and survival equipments available on board the aircraft. [FIXM]</xs:documentation>
+				</xs:annotation>
+			</xs:element>			
 		</xs:sequence>
 	</xs:complexType>
+	<xs:complexType name="SurvivalCapabilitiesType">
+		<xs:annotation>
+			<xs:documentation>The emergency and survival equipments available on board the aircraft. [FIXM]</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="extension" type="fb:SurvivalCapabilitiesExtensionType" nillable="true" minOccurs="0" maxOccurs="2000">
+				<xs:annotation>
+					<xs:documentation>An extension hook for attaching extension (non-core) classes.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>	
 </xs:schema>
