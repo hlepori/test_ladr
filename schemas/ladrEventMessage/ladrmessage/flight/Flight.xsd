@@ -36,13 +36,7 @@ Details on the SESAR JU and its members: http://www.sesarju.eu/discover-sesar/pa
 Details on the US FAA: http://www.faa.gov/ </xs:documentation>
 	</xs:annotation>
 	<xs:include schemaLocation="./aircraft/Aircraft.xsd"/>
-	<xs:include schemaLocation="./arrival/Arrival.xsd"/>
 	<xs:include schemaLocation="./capability/Capability.xsd"/>
-	<xs:include schemaLocation="./cargo/Cargo.xsd"/>
-	<xs:include schemaLocation="./departure/Departure.xsd"/>
 	<xs:include schemaLocation="./emergency/Emergency.xsd"/>
-	<xs:include schemaLocation="./enroute/EnRoute.xsd"/>
 	<xs:include schemaLocation="./flightdata/FlightData.xsd"/>
-	<xs:include schemaLocation="./flightroutetrajectory/FlightRouteTrajectory.xsd"/>
-	<xs:include schemaLocation="./rankedtrajectory/RankedTrajectory.xsd"/>
 </xs:schema>
