@@ -20,6 +20,7 @@ THIS SPECIFICATION IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
 Editorial note: this license is an instance of the BSD license template as provided by the Open Source Initiative: http://opensource.org/licenses/BSD-3-Clause
 
 Details about EUROCONTROL are available at www.eurocontrol.int
+			</xs:documentation>	
 	</xs:annotation>
 	<xs:import namespace="http://www.fixm.aero/base/4.2" schemaLocation="./base/Base.xsd"/>
 	<xs:import namespace="http://www.fixm.aero/flight/4.2" schemaLocation="./flight/Flight.xsd"/>
