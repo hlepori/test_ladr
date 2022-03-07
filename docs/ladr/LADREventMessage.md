@@ -10,13 +10,13 @@
 ```mermaid
 classDiagram
 class LadrMessage
-LadrMessage : fb:PersonOrOrganization [1]+originator
-LadrMessage : fb:PersonOrOrganization [1]+recipient
-LadrMessage : fb:UniversallyUniqueIdentifier [1]+uniqueMessageIdentifier
+LadrMessage : +originator [0..1] PersonOrOrganization
+LadrMessage : +recipient [0..1] PersonOrOrganization
+LadrMessage : +uniqueMessageIdentifier [1] UniversallyUniqueIdentifier
 class LadrMessageType
 <<enumeration>> LadrMessageType
 LadrMessageType : LADR_CONFIRMATION_OR_ERROR_MESSAGE
-LadrMessage --> LadrMessageType : [0..1]+type
+LadrMessage --> LadrMessageType : +type [1]
 ```
 
 ## Template description with business rules
