@@ -1,3 +1,3 @@
 <!-- _navbar.md -->
 
-* TESTING ENVIRONMENT
+* © EUROCONTROL 2022
