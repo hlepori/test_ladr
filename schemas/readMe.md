@@ -1,1 +1,7 @@
-This is a testing environment to evaluate the use of GitHub in support of LADR.
+
+# LADR Messages
+
+LADR Message|Description|Guidance|
+|:-|:--_|:--|
+|LADR Event Message|on INOUT to LADR|Visit [LADR Schemas documentation](https://hlepori.github.io/test_ladr/#/ladr/LADREventMessage)|
+|...|...|...|

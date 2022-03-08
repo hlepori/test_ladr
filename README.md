@@ -1,3 +1,3 @@
-# test_ladr
+# Test Environment for LADR schema development
 
-Text ADDED.
+This GITHUB environment is created in order to evaluate the capabilities and relevance of Github in support of the development of the LADR schemas.
