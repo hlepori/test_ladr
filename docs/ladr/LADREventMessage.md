@@ -48,7 +48,7 @@ Aircraft --> FlightCapabilities : +capabilities [1]
 class CommunicationCapabilities
 <<FIXM_Core>> CommunicationCapabilities
 CommunicationCapabilities : +selectiveCallingCode [0..1] SelectiveCallingCode
-CommunicationCapabilities : +otherDatalinkCapabilities [0..1] CharacterString
+CommunicationCapabilities : +otherCommunicationCapabilities [0..1] CharacterString
 FlightCapabilities --> CommunicationCapabilities : +communication [1]
 %% -------------------
 class SurvivalCapabilities
