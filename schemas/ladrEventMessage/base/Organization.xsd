@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:fb="http://www.fixm.aero/base/4.2" targetNamespace="http://www.fixm.aero/base/4.2" elementFormDefault="qualified" version="4.2.0">
+<xs:schema targetNamespace="http://www.fixm.aero/base/4.2" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:fb="http://www.fixm.aero/base/4.2" elementFormDefault="qualified" version="4.2.0">
 	<xs:annotation>
 		<xs:documentation>This package contains classes that model information about organizations including contact information. [FIXM]
 
@@ -50,17 +50,7 @@ This is the ICAO Operator Code as standardised by ICAO Doc 8585 Manual on Design
 			<xs:documentation>A person, organization or enterprise engaged in or offering to engage in an aircraft operation. [ICAO Annex 9]</xs:documentation>
 		</xs:annotation>
 		<xs:sequence>
-			<xs:element name="designatorIcao" type="fb:AircraftOperatorDesignatorType" nillable="true" minOccurs="0" maxOccurs="1">
-				<xs:annotation>
-					<xs:documentation>The identifier of the Aircraft Operator as assigned by ICAO. [FIXM]
-This is the ICAO Operator Code as standardised by ICAO Doc 8585 Manual on Designators for Aircraft Operating Agencies, Aeronautical Authorities and Services.</xs:documentation>
-				</xs:annotation>
-			</xs:element>
-			<xs:element name="operatingOrganization" type="fb:PersonOrOrganizationType" nillable="true" minOccurs="0" maxOccurs="1">
-				<xs:annotation>
-					<xs:documentation>Aircraft Operator Identity: Identity of a person, organization or enterprise engaged in or offering to engage in aircraft operation.</xs:documentation>
-				</xs:annotation>
-			</xs:element>
+			<xs:element name="designatorIcao" type="fb:AircraftOperatorDesignatorType" minOccurs="1" maxOccurs="1" nillable="true"/>
 		</xs:sequence>
 	</xs:complexType>
 	<xs:complexType name="PersonOrOrganizationType">
@@ -68,19 +58,9 @@ This is the ICAO Operator Code as standardised by ICAO Doc 8585 Manual on Design
 			<xs:documentation>An identifiable, responsible entity that can be either a natural person or an organization.</xs:documentation>
 		</xs:annotation>
 		<xs:sequence>
-			<xs:element name="identifier" type="fb:CharacterStringType" nillable="true" minOccurs="0" maxOccurs="1">
+			<xs:element name="identifier" type="fb:CharacterStringType" minOccurs="0" maxOccurs="1" nillable="true">
 				<xs:annotation>
 					<xs:documentation>A designator used for identifying the Person, State, Organization, Authority, aircraft operating agency, handling agency etc.  [FIXM]</xs:documentation>
-				</xs:annotation>
-			</xs:element>
-			<xs:element name="identifierDomain" type="fb:CharacterStringType" nillable="true" minOccurs="0" maxOccurs="1">
-				<xs:annotation>
-					<xs:documentation>The relevant domain in which the person or organization's identifier is defined or used.  [FIXM]</xs:documentation>
-				</xs:annotation>
-			</xs:element>
-			<xs:element name="name" type="fb:TextNameType" nillable="true" minOccurs="0" maxOccurs="1">
-				<xs:annotation>
-					<xs:documentation>The full official name of the Person, State, Organisation, Authority, aircraft operating agency, handling agency etc. [FIXM]</xs:documentation>
 				</xs:annotation>
 			</xs:element>
 		</xs:sequence>

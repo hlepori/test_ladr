@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:fx="http://www.fixm.aero/flight/4.2" xmlns:fb="http://www.fixm.aero/base/4.2" targetNamespace="http://www.fixm.aero/flight/4.2" elementFormDefault="qualified" version="4.2.0">
+<xs:schema targetNamespace="http://www.fixm.aero/flight/4.2" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:fb="http://www.fixm.aero/base/4.2" xmlns:fx="http://www.fixm.aero/flight/4.2" elementFormDefault="qualified" version="4.2.0">
 	<xs:annotation>
 		<xs:documentation>The aircraft package describes the details about the aircraft that is servicing the flight. [FIXM]
 
@@ -35,7 +35,7 @@ Details on the ICCAIA: www.iccaia.org
 Details on the SESAR JU and its members: http://www.sesarju.eu/discover-sesar/partnering-smarter-aviation/members 
 Details on the US FAA: http://www.faa.gov/ </xs:documentation>
 	</xs:annotation>
-	<xs:import namespace="http://www.fixm.aero/base/4.2" schemaLocation="../../base/Base.xsd"/>
+	<xs:import namespace="http://www.fixm.aero/base/4.2" schemaLocation="../../base/Types.xsd"/>
 	<xs:include schemaLocation="../capability/Capability.xsd"/>
 	<xs:simpleType name="AircraftAddressType">
 		<xs:annotation>
@@ -45,6 +45,12 @@ Details on the US FAA: http://www.faa.gov/ </xs:documentation>
 			<xs:pattern value="[0-9A-F]{6}"/>
 		</xs:restriction>
 	</xs:simpleType>
+	<xs:simpleType name="AircraftRegistrationListType">
+		<xs:annotation>
+			<xs:documentation>Helper simpleType that allows representation of aircraft registrations as a list.</xs:documentation>
+		</xs:annotation>
+		<xs:list itemType="fx:AircraftRegistrationType"/>
+	</xs:simpleType>
 	<xs:simpleType name="AircraftRegistrationType">
 		<xs:annotation>
 			<xs:documentation>A unique, alphanumeric string that identifies a civil aircraft and consists of the Aircraft Nationality or Common Mark and an additional alphanumeric string, the registration mark, assigned by the state of registry or common mark registering authority. [FIXM]</xs:documentation>
@@ -53,36 +59,14 @@ Details on the US FAA: http://www.faa.gov/ </xs:documentation>
 			<xs:pattern value="[A-Z0-9]{1,7}"/>
 		</xs:restriction>
 	</xs:simpleType>
-	<xs:simpleType name="AircraftRegistrationListType">
-		<xs:annotation>
-			<xs:documentation>Helper simpleType that allows representation of aircraft registrations as a list.</xs:documentation>
-		</xs:annotation>
-		<xs:list itemType="fx:AircraftRegistrationType"/>
-	</xs:simpleType>
 	<xs:complexType name="AircraftType">
 		<xs:annotation>
 			<xs:documentation>Aircraft enabling the flight. [FIXM]</xs:documentation>
 		</xs:annotation>
 		<xs:sequence>
-			<xs:element name="aircraftAddress" type="fx:AircraftAddressType" nillable="true" minOccurs="0" maxOccurs="1">
-				<xs:annotation>
-					<xs:documentation>A unique combination of twenty-four bits available for assignment to an aircraft for the purpose of air-ground communications, navigation and surveillance. [ICAO Doc 4444]</xs:documentation>
-				</xs:annotation>
-			</xs:element>
-			<xs:element name="capabilities" type="fx:FlightCapabilitiesType" nillable="true" minOccurs="0" maxOccurs="1">
-				<xs:annotation>
-					<xs:documentation>The capabilities of the flight comprising of the:
-a) presence of relevant serviceable equipment on board the aircraft;
-b) equipment and capabilities commensurate with flight crew qualifications; and
-c) where applicable, authorization from the appropriate authority.
-[FIXM]</xs:documentation>
-				</xs:annotation>
-			</xs:element>
-			<xs:element name="registration" type="fx:AircraftRegistrationListType" nillable="true" minOccurs="0" maxOccurs="1">
-				<xs:annotation>
-					<xs:documentation>A unique, alphanumeric string that identifies a civil aircraft and consists of the Aircraft Nationality or Common Mark and an additional alphanumeric string, the registration mark, assigned by the state of registry or common mark registering authority. [FIXM]</xs:documentation>
-				</xs:annotation>
-			</xs:element>
+			<xs:element name="aircraftAddress" type="fx:AircraftAddressType" minOccurs="1" maxOccurs="1" nillable="true"/>
+			<xs:element name="capabilities" type="fx:FlightCapabilitiesType" minOccurs="0" maxOccurs="1" nillable="true"/>
+			<xs:element name="registration" type="fx:AircraftRegistrationListType" minOccurs="1" maxOccurs="1" nillable="true"/>
 		</xs:sequence>
 	</xs:complexType>
 </xs:schema>

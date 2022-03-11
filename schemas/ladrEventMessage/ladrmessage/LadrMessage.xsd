@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ladr="http://www.eurocontrol.int/nm/fixm/app/ladr/1.0" xmlns:fb="http://www.fixm.aero/base/4.2" xmlns:fx="http://www.fixm.aero/flight/4.2" targetNamespace="http://www.eurocontrol.int/nm/fixm/app/ladr/1.0" elementFormDefault="qualified" version="0.0.1">
+<xs:schema targetNamespace="http://www.eurocontrol.int/nm/fixm/app/ladr/1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ladr="http://www.eurocontrol.int/nm/fixm/app/ladr/1.0" xmlns:fb="http://www.fixm.aero/base/4.2" xmlns:fx="http://www.fixm.aero/flight/4.2" elementFormDefault="qualified" version="0.0.1">
 	<xs:annotation>
-		<xs:documentation>Defines generic LADR message metadata elements and provides a framework for developing LADR messaging extensions and sending LADR message collections.</xs:documentation>
+		<xs:documentation>The profile corresponding to the Ladr Event Message. Copyright EUROCONTROL</xs:documentation>
 	</xs:annotation>
-	<xs:import namespace="http://www.fixm.aero/base/4.2" schemaLocation="..\base\Measures.xsd"/>
-	<xs:import namespace="http://www.fixm.aero/base/4.2" schemaLocation="..\base\Organization.xsd"/>
-	<xs:import namespace="http://www.fixm.aero/base/4.2" schemaLocation="..\base\Types.xsd"/>
-	<xs:import namespace="http://www.fixm.aero/flight/4.2" schemaLocation="..\flight\flightdata\FlightData.xsd"/>
-	<xs:import namespace="http://www.fixm.aero/base/4.2" schemaLocation="..\base\Extension.xsd"/>
+	<xs:import namespace="http://www.fixm.aero/flight/4.2" schemaLocation="../flight/flightdata/FlightData.xsd"/>
+	<xs:import namespace="http://www.fixm.aero/base/4.2" schemaLocation="../base/Measures.xsd"/>
+	<xs:import namespace="http://www.fixm.aero/base/4.2" schemaLocation="../base/Organization.xsd"/>
+	<xs:import namespace="http://www.fixm.aero/base/4.2" schemaLocation="../base/Types.xsd"/>
+	<xs:import namespace="http://www.fixm.aero/base/4.2" schemaLocation="../base/Extension.xsd"/>
 	<xs:element name="LadrMessage" type="ladr:LadrMessageType">
 		<xs:annotation>
 			<xs:documentation>The LADR Message element is an entry point to the LADR FIXM model.</xs:documentation>
@@ -32,7 +32,6 @@
 	</xs:simpleType>
 	<xs:simpleType name="LadrMessageTypeType">
 		<xs:restriction base="xs:string">
-			<xs:enumeration value="LADR_CONFIRMATION_OR_ERROR_MESSAGE"/>
 			<xs:enumeration value="LADR_EVENT_MESSAGE"/>
 		</xs:restriction>
 	</xs:simpleType>
@@ -41,14 +40,14 @@
 			<xs:documentation>A generic term describing equipment which Broadcast distinctive signals on designated frequencies and, depending on Application, may be automatically activated by impact or be manually activated.</xs:documentation>
 		</xs:annotation>
 		<xs:sequence>
-			<xs:element name="hexId" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="hexId" type="fb:CharacterStringType" minOccurs="0" maxOccurs="1"/>
 		</xs:sequence>
 	</xs:complexType>
 	<xs:complexType name="EventInformationType">
 		<xs:sequence>
 			<xs:element name="adtActivationMethod" type="fb:CharacterStringType" minOccurs="0" maxOccurs="1"/>
 			<xs:element name="contributorCode" type="fb:PersonOrOrganizationType" minOccurs="0" maxOccurs="1"/>
-			<xs:element name="dataSource" type="fb:CharacterStringType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="dataSource" type="fb:CharacterStringType" minOccurs="1" maxOccurs="1"/>
 		</xs:sequence>
 	</xs:complexType>
 	<xs:complexType name="LadrAltitudeType">
@@ -66,7 +65,7 @@
 			<xs:extension base="fb:LastPositionReportExtensionType">
 				<xs:sequence>
 					<xs:element name="altitude" type="ladr:LadrAltitudeType" minOccurs="0" maxOccurs="1"/>
-					<xs:element name="groundSpeed" type="fb:GroundSpeedType" minOccurs="0" maxOccurs="1"/>
+					<xs:element name="groundSpeed" type="fb:GroundSpeedType" minOccurs="1" maxOccurs="1"/>
 					<xs:element name="heading" type="fb:BearingType" minOccurs="0" maxOccurs="1"/>
 					<xs:element name="horizontalAccuracy" type="fb:DistanceType" minOccurs="0" maxOccurs="1">
 						<xs:annotation>
@@ -82,42 +81,33 @@
 			<xs:documentation>[TO BE REVISED] A communication sent from one location to another and comprising an integral number of fields. [ICAO Doc 9426]. </xs:documentation>
 		</xs:annotation>
 		<xs:sequence>
-			<xs:element name="flight" type="fx:FlightType" minOccurs="0" maxOccurs="1">
+			<xs:element name="uniqueMessageIdentifier" type="fb:UniversallyUniqueIdentifierType" minOccurs="1" maxOccurs="1">
 				<xs:annotation>
-					<xs:documentation>A flight associated with the message.</xs:documentation>
+					<xs:documentation>A unique message identifier for LADR messages.</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="eventInformation" type="ladr:EventInformationType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="timestamp" type="fb:TimeType" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>The time and date that the communication was sent.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="receiptTime" type="fb:TimeType" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Date and time of receipt.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
 			<xs:element name="originator" type="fb:PersonOrOrganizationType" minOccurs="0" maxOccurs="1">
 				<xs:annotation>
 					<xs:documentation>Sender of the message.</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="receiptTime" type="fb:TimeType" minOccurs="0" maxOccurs="1">
-				<xs:annotation>
-					<xs:documentation>Date and time of receipt.</xs:documentation>
-				</xs:annotation>
-			</xs:element>
-			<xs:element name="recipient" type="fb:PersonOrOrganizationType" minOccurs="0" maxOccurs="1">
-				<xs:annotation>
-					<xs:documentation>Intended recipient of the LADR message.</xs:documentation>
-				</xs:annotation>
-			</xs:element>
-			<xs:element name="timestamp" type="fb:TimeType" minOccurs="0" maxOccurs="1">
-				<xs:annotation>
-					<xs:documentation>The time and date that the communication was sent.</xs:documentation>
-				</xs:annotation>
-			</xs:element>
-			<xs:element name="type" type="ladr:LadrMessageTypeType" minOccurs="0" maxOccurs="1">
+			<xs:element name="type" type="ladr:LadrMessageTypeType" minOccurs="1" maxOccurs="1">
 				<xs:annotation>
 					<xs:documentation>Represents the type of message.</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="uniqueMessageIdentifier" type="fb:UniversallyUniqueIdentifierType" minOccurs="0" maxOccurs="1">
-				<xs:annotation>
-					<xs:documentation>A unique message identifier for LADR messages.</xs:documentation>
-				</xs:annotation>
-			</xs:element>
+			<xs:element name="eventInformation" type="ladr:EventInformationType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="flight" type="fx:FlightType" minOccurs="0" maxOccurs="1"/>
 		</xs:sequence>
 	</xs:complexType>
 	<xs:complexType name="LadrSurvivalCapabilitiesExtensionType">

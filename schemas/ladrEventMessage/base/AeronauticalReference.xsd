@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:fb="http://www.fixm.aero/base/4.2" targetNamespace="http://www.fixm.aero/base/4.2" elementFormDefault="qualified" version="4.2.0">
+<xs:schema targetNamespace="http://www.fixm.aero/base/4.2" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:fb="http://www.fixm.aero/base/4.2" elementFormDefault="qualified" version="4.2.0">
 	<xs:annotation>
 		<xs:documentation>This package contains classes that model information about the airspace infrastructure (Airspace, ATS routes, ATC Units, Significant Points, Aerodromes, Runways, and Designators) needed by flight data. [FIXM]
 
@@ -35,15 +35,14 @@ Details on the ICCAIA: www.iccaia.org
 Details on the SESAR JU and its members: http://www.sesarju.eu/discover-sesar/partnering-smarter-aviation/members 
 Details on the US FAA: http://www.faa.gov/ </xs:documentation>
 	</xs:annotation>
-	<!--<xs:include schemaLocation="Extension.xsd"/>-->
-	<!--<xs:include schemaLocation="Types.xsd"/>-->
-	<!--<xs:include schemaLocation="Measures.xsd"/>-->
-	<xs:simpleType name="LatLongPosType">
+	<xs:include schemaLocation="Measures.xsd"/>
+	<xs:include schemaLocation="Types.xsd"/>
+	<xs:simpleType name="DesignatedPointDesignatorType">
 		<xs:annotation>
-			<xs:documentation>A series of coordinates limited to two instances.  Latitude followed by longitude.  </xs:documentation>
+			<xs:documentation>The name of the designated point.</xs:documentation>
 		</xs:annotation>
-		<xs:restriction base="fb:LatLongPosListType">
-			<xs:maxLength value="2"/>
+		<xs:restriction base="fb:CharacterStringType">
+			<xs:pattern value="[A-Z0-9]{1,5}"/>
 		</xs:restriction>
 	</xs:simpleType>
 	<xs:simpleType name="LatLongPosListType">
@@ -52,6 +51,46 @@ Details on the US FAA: http://www.faa.gov/ </xs:documentation>
 		</xs:annotation>
 		<xs:list itemType="xs:double"/>
 	</xs:simpleType>
+	<xs:simpleType name="LatLongPosType">
+		<xs:annotation>
+			<xs:documentation>A series of coordinates limited to two instances.  Latitude followed by longitude.  </xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="fb:LatLongPosListType">
+			<xs:maxLength value="2"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="NavaidDesignatorType">
+		<xs:annotation>
+			<xs:documentation>A name of the Navaid.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="fb:CharacterStringType">
+			<xs:pattern value="[A-Z0-9]{1,4}"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="AerodromeReferenceType">
+		<xs:annotation>
+			<xs:documentation>An aerodrome reference being either:
+- the ICAO location indicator of the aerodrome, as listed in ICAO Doc 7910 (E.g. "KDFW")
+- if no location indicator is available, the aerodrome name (E.g. "Dallas Fort Worth") or the identifier assigned to the aerodrome location in accordance with rules (resolution 767) governed by the International Air Transport Association. (E.g. "DFW")
+[FIXM]</xs:documentation>
+		</xs:annotation>
+		<xs:sequence/>
+	</xs:complexType>
+	<xs:complexType name="DesignatedPointType">
+		<xs:annotation>
+			<xs:documentation>A named geographical location used in defining an ATS route, the flight path of an aircraft or for other navigation or ATS purposes. [FIXM]
+
+The coded designator of a designated point is not always sufficient for unambiguously referring to that feature: 
+The 5-letter coded designator of a waypoint is supposed to be unique world-wide (according to ICAO Annex 11), but in reality it is not. 
+
+The combinations of fields that would make the references unique are name + position.
+
+This FIXM class adds an optional properties 'position' which may be used as a complement to the 'name' information in order to remove any ambiguity on the coded designator.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="designator" type="fb:DesignatedPointDesignatorType" minOccurs="1" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
 	<xs:complexType name="GeographicalPositionType">
 		<xs:annotation>
 			<xs:documentation>An unnamed point designated only with a set of coordinates - latitude/longitude. [FIXM]
@@ -68,22 +107,56 @@ in order of LATITUDE FIRST, THEN LONGITUDE.</xs:documentation>
 				</xs:annotation>
 			</xs:element>
 		</xs:sequence>
-		<xs:attribute name="srsName" type="xs:string" use="required" fixed="urn:ogc:def:crs:EPSG::4326">
+		<xs:attribute name="srsName" use="required" fixed="urn:ogc:def:crs:EPSG::4326" type="xs:string">
 			<xs:annotation>
 				<xs:documentation>Names the coordinate reference system (CRS) that defines the semantics of the lat/long pair according to the ISO6709 standard. FIXM uses only "urn:ogc:def:crs:EPSG::4326".</xs:documentation>
 			</xs:annotation>
 		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="NavaidType">
+		<xs:annotation>
+			<xs:documentation>A radio navigation aid used in defining an ATS route, the flight path of an aircraft or for other navigation or ATS purposes. [FIXM]
+
+The coded designator of a navaid is not always sufficient for unambiguously referring to that feature: 
+The en-route navaids (VOR, DME, NDB) designator is supposed to be unique (according to ICAO Annex 11) within 600 NM. This means that these designators are not unique world-wide. For airport navaids, there is no limitation.
+
+The combinations of fields that would make the references unique are designator + position + navaid service type.
+
+This FIXM class adds two optional properties 'position' and 'navaidServiceType' which may be used as a complement to the 'designator' information in order to remove any ambiguity on the coded designator.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="designator" type="fb:NavaidDesignatorType" minOccurs="1" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="RelativePointType">
+		<xs:annotation>
+			<xs:documentation>Bearing and distance from a reference point. [ICAO Doc 4444, Appendix 2, ITEM 15]
+This FIXM class adds one optional property 'position' which may be used as a complement to the bearing, distance and reference point information in order to provide the computed position of the relative point, if available.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="bearing" type="fb:BearingType" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>The radius from a chosen Navaid </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="distance" type="fb:DistanceType" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Distance from the chosen Navaid to the Intersection.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="referencePoint" type="fb:NavaidType" minOccurs="1" maxOccurs="1"/>
+		</xs:sequence>
 	</xs:complexType>
 	<xs:complexType name="SignificantPointChoiceType">
 		<xs:annotation>
 			<xs:documentation>A location type restricted to lat/long location, named location, or reference location.</xs:documentation>
 		</xs:annotation>
 		<xs:choice>
-			<xs:element name="position" type="fb:GeographicalPositionType" minOccurs="1" maxOccurs="1">
-				<xs:annotation>
-					<xs:documentation>The values of latitude and longitude that define the position of a point on the surface of the Earth with respect to a reference datum. [specialised from ICAO Doc 9881]</xs:documentation>
-				</xs:annotation>
-			</xs:element>
+			<xs:element name="aerodromeReferencePoint" type="fb:AerodromeReferenceType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="designatedPoint" type="fb:DesignatedPointType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="navaid" type="fb:NavaidType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="position" type="fb:GeographicalPositionType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="relativePoint" type="fb:RelativePointType" minOccurs="1" maxOccurs="1"/>
 		</xs:choice>
 	</xs:complexType>
 </xs:schema>

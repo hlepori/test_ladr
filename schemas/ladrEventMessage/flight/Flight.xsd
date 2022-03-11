@@ -35,8 +35,4 @@ Details on the ICCAIA: www.iccaia.org
 Details on the SESAR JU and its members: http://www.sesarju.eu/discover-sesar/partnering-smarter-aviation/members 
 Details on the US FAA: http://www.faa.gov/ </xs:documentation>
 	</xs:annotation>
-	<xs:include schemaLocation="./aircraft/Aircraft.xsd"/>
-	<xs:include schemaLocation="./capability/Capability.xsd"/>
-	<xs:include schemaLocation="./emergency/Emergency.xsd"/>
-	<xs:include schemaLocation="./flightdata/FlightData.xsd"/>
 </xs:schema>

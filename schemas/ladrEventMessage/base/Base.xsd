@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:fb="http://www.fixm.aero/base/4.2" targetNamespace="http://www.fixm.aero/base/4.2" elementFormDefault="qualified" version="4.2.0">
+<xs:schema targetNamespace="http://www.fixm.aero/base/4.2" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:fb="http://www.fixm.aero/base/4.2" elementFormDefault="qualified" version="4.2.0">
 	<xs:annotation>
 		<xs:documentation>A set of common data types not specific to the Flight domain comprising: 
 - basic integer and string types 
@@ -41,12 +41,4 @@ Details on the ICCAIA: www.iccaia.org
 Details on the SESAR JU and its members: http://www.sesarju.eu/discover-sesar/partnering-smarter-aviation/members 
 Details on the US FAA: http://www.faa.gov/ </xs:documentation>
 	</xs:annotation>
-	<!--<xs:include schemaLocation="./Address.xsd"/>-->
-	<xs:include schemaLocation="./AeronauticalReference.xsd"/>
-	<xs:include schemaLocation="./Extension.xsd"/>
-	<xs:include schemaLocation="./Measures.xsd"/>
-	<xs:include schemaLocation="./Organization.xsd"/>
-	<!--<xs:include schemaLocation="./RangesAndChoices.xsd"/>-->
-	<xs:include schemaLocation="./Types.xsd"/>
-	<xs:include schemaLocation="./UnitOfMeasures.xsd"/>
 </xs:schema>

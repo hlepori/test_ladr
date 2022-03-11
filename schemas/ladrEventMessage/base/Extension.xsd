@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- edited with XMLSpy v2021 (x64) (http://www.altova.com) by LEPORI Hubert (Eurocontrol) -->
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:fb="http://www.fixm.aero/base/4.2" targetNamespace="http://www.fixm.aero/base/4.2" elementFormDefault="qualified" version="4.2.0">
+<xs:schema targetNamespace="http://www.fixm.aero/base/4.2" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:fb="http://www.fixm.aero/base/4.2" elementFormDefault="qualified" version="4.2.0">
 	<xs:annotation>
 		<xs:documentation>Contains all the classes needed to construct extensions to the FIXM model. [FIXM]
 
@@ -40,10 +39,12 @@ Details on the US FAA: http://www.faa.gov/ </xs:documentation>
 		<xs:annotation>
 			<xs:documentation>A base class for all LastPositionReport class extensions.</xs:documentation>
 		</xs:annotation>
+		<xs:sequence/>
 	</xs:complexType>
 	<xs:complexType name="SurvivalCapabilitiesExtensionType" abstract="true">
 		<xs:annotation>
 			<xs:documentation>A base class for all SurvivalCapabilities class extensions.</xs:documentation>
 		</xs:annotation>
+		<xs:sequence/>
 	</xs:complexType>
 </xs:schema>

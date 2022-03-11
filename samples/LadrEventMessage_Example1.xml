@@ -1,5 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ladr:LadrMessage xmlns:ladr="http://www.eurocontrol.int/nm/fixm/app/ladr/1.0" xmlns:fx="http://www.fixm.aero/flight/4.2" xmlns:fb="http://www.fixm.aero/base/4.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.eurocontrol.int/nm/fixm/app/ladr/1.0 ..\schemas\ladrEventMessage\LadrEventMessage.xsd">
+<ladr:LadrMessage xmlns:ladr="http://www.eurocontrol.int/nm/fixm/app/ladr/1.0" xmlns:fx="http://www.fixm.aero/flight/4.2" xmlns:fb="http://www.fixm.aero/base/4.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.eurocontrol.int/nm/fixm/app/ladr/1.0 ..\schemas\\ladrEventMessage\\ladrmessage\LadrMessage.xsd">
+	<ladr:uniqueMessageIdentifier codeSpace="urn:uuid">81e47548-9f00-4970-b641-8ff8f99098a5</ladr:uniqueMessageIdentifier>
+	<ladr:timestamp>2022-01-19T06:00:10Z</ladr:timestamp>
+	<ladr:receiptTime>2022-01-19T06:00:12Z</ladr:receiptTime>
+	<ladr:originator>
+		<fb:identifier>1</fb:identifier>
+	</ladr:originator>
+	<ladr:type>LADR_EVENT_MESSAGE</ladr:type>
+	<ladr:eventInformation>
+		<ladr:adtActivationMethod>MANUAL</ladr:adtActivationMethod>
+		<ladr:contributorCode>
+			<fb:identifier>1</fb:identifier>
+		</ladr:contributorCode>
+		<ladr:dataSource>SPMCC</ladr:dataSource>
+	</ladr:eventInformation>
 	<ladr:flight>
 		<fx:aircraft>
 			<fx:aircraftAddress>AF0F89</fx:aircraftAddress>
@@ -12,6 +26,7 @@
 					</fx:extension>
 				</fx:survival>
 			</fx:capabilities>
+			<fx:registration xsi:nil="true"/>
 		</fx:aircraft>
 		<fx:emergency>
 			<fx:lastContact>
@@ -21,7 +36,8 @@
 							<ladr:altitude uom="FT">10000</ladr:altitude>
 							<ladr:altitudeSource>GNSS</ladr:altitudeSource>
 						</ladr:altitude>
-					</fx:extension>				
+						<ladr:groundSpeed uom="KT">100</ladr:groundSpeed>
+					</fx:extension>	
 					<fx:position>
 						<fb:position srsName="urn:ogc:def:crs:EPSG::4326">
 							<fb:pos>32.000 15.000</fb:pos>
@@ -32,27 +48,10 @@
 			</fx:lastContact>
 		</fx:emergency>
 		<fx:flightIdentification>
-			<fx:aircraftIdentification>UNKNOWN</fx:aircraftIdentification>
+			<fx:aircraftIdentification xsi:nil="true"/>
 		</fx:flightIdentification>
 		<fx:operator>
-			<fb:designatorIcao>ABC</fb:designatorIcao>
-		</fx:operator>		
+			<fb:designatorIcao xsi:nil="true"/>
+		</fx:operator>
 	</ladr:flight>
-	<ladr:eventInformation>
-		<ladr:adtActivationMethod>MANUAL</ladr:adtActivationMethod>
-		<ladr:contributorCode>
-			<fb:identifier>1</fb:identifier>
-		</ladr:contributorCode>
-		<ladr:dataSource>SPMCC</ladr:dataSource>
-	</ladr:eventInformation>
-	<ladr:originator>
-		<fb:name xsi:nil="true"/>
-	</ladr:originator>
-	<ladr:receiptTime>2022-01-19T06:00:12Z</ladr:receiptTime>
-	<ladr:recipient>
-		<fb:name xsi:nil="true"/>
-	</ladr:recipient>
-	<ladr:timestamp>2022-01-19T06:00:10Z</ladr:timestamp>
-	<ladr:type>LADR_EVENT_MESSAGE</ladr:type>
-	<ladr:uniqueMessageIdentifier codeSpace="urn:uuid">81e47548-9f00-4970-b641-8ff8f99098a5</ladr:uniqueMessageIdentifier>
 </ladr:LadrMessage>

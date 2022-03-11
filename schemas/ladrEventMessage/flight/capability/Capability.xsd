@@ -35,8 +35,8 @@ Details on the ICCAIA: www.iccaia.org
 Details on the SESAR JU and its members: http://www.sesarju.eu/discover-sesar/partnering-smarter-aviation/members 
 Details on the US FAA: http://www.faa.gov/ </xs:documentation>
 	</xs:annotation>
-	<xs:import namespace="http://www.fixm.aero/base/4.2" schemaLocation="../../base/Base.xsd"/>
-
+	<xs:import namespace="http://www.fixm.aero/base/4.2" schemaLocation="../../base/Extension.xsd"/>
+	<xs:import namespace="http://www.fixm.aero/base/4.2" schemaLocation="../../base/Types.xsd"/>
 	<xs:simpleType name="SelectiveCallingCodeType">
 		<xs:annotation>
 			<xs:documentation>A code that consists of two 2-letter pairs and acts as a paging system for an ATS unit to establish voice communications with the pilot of an aircraft.</xs:documentation>
@@ -55,14 +55,9 @@ Details on the US FAA: http://www.faa.gov/ </xs:documentation>
 					<xs:documentation>Additional Communication capabilities available on the aircraft.</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="selectiveCallingCode" type="fx:SelectiveCallingCodeType" minOccurs="0" maxOccurs="1" nillable="true">
-				<xs:annotation>
-					<xs:documentation>A code that consists of two 2-letter pairs and acts as a paging system for an ATS unit to establish voice communications with the pilot of an aircraft.</xs:documentation>
-				</xs:annotation>
-			</xs:element>
+			<xs:element name="selectiveCallingCode" type="fx:SelectiveCallingCodeType" minOccurs="0" maxOccurs="1" nillable="true"/>
 		</xs:sequence>
 	</xs:complexType>
-
 	<xs:complexType name="FlightCapabilitiesType">
 		<xs:annotation>
 			<xs:documentation>The capabilities of the flight comprising of the:
@@ -72,16 +67,8 @@ c) where applicable, authorization from the appropriate authority.
 [FIXM]</xs:documentation>
 		</xs:annotation>
 		<xs:sequence>
-			<xs:element name="communication" type="fx:CommunicationCapabilitiesType" minOccurs="0" maxOccurs="1" nillable="true">
-				<xs:annotation>
-					<xs:documentation>The serviceable communications equipment, available on the aircraft at the time of flight, and associated flight crew qualifications that may be used to communicate with ATS units. [FIXM]</xs:documentation>
-				</xs:annotation>
-			</xs:element>
-			<xs:element name="survival" type="fx:SurvivalCapabilitiesType" nillable="true" minOccurs="0" maxOccurs="1">
-				<xs:annotation>
-					<xs:documentation>The emergency and survival equipments available on board the aircraft. [FIXM]</xs:documentation>
-				</xs:annotation>
-			</xs:element>			
+			<xs:element name="communication" type="fx:CommunicationCapabilitiesType" minOccurs="0" maxOccurs="1" nillable="true"/>
+			<xs:element name="survival" type="fx:SurvivalCapabilitiesType" minOccurs="0" maxOccurs="1" nillable="true"/>
 		</xs:sequence>
 	</xs:complexType>
 	<xs:complexType name="SurvivalCapabilitiesType">
@@ -89,11 +76,11 @@ c) where applicable, authorization from the appropriate authority.
 			<xs:documentation>The emergency and survival equipments available on board the aircraft. [FIXM]</xs:documentation>
 		</xs:annotation>
 		<xs:sequence>
-			<xs:element name="extension" type="fb:SurvivalCapabilitiesExtensionType" nillable="true" minOccurs="0" maxOccurs="2000">
+			<xs:element name="extension" type="fb:SurvivalCapabilitiesExtensionType" minOccurs="0" maxOccurs="2000" nillable="true">
 				<xs:annotation>
 					<xs:documentation>An extension hook for attaching extension (non-core) classes.</xs:documentation>
 				</xs:annotation>
 			</xs:element>
 		</xs:sequence>
-	</xs:complexType>	
+	</xs:complexType>
 </xs:schema>

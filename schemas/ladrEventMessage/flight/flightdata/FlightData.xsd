@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:fx="http://www.fixm.aero/flight/4.2" xmlns:fb="http://www.fixm.aero/base/4.2" targetNamespace="http://www.fixm.aero/flight/4.2" elementFormDefault="qualified" version="4.2.0">
+<xs:schema targetNamespace="http://www.fixm.aero/flight/4.2" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:fx="http://www.fixm.aero/flight/4.2" xmlns:fb="http://www.fixm.aero/base/4.2" elementFormDefault="qualified" version="4.2.0">
 	<xs:annotation>
 		<xs:documentation>The flight data package contains information describing all details associated with the flight. It is a central package of the FIXM model.
 
@@ -35,44 +35,33 @@ Details on the ICCAIA: www.iccaia.org
 Details on the SESAR JU and its members: http://www.sesarju.eu/discover-sesar/partnering-smarter-aviation/members 
 Details on the US FAA: http://www.faa.gov/ </xs:documentation>
 	</xs:annotation>
-	<xs:import namespace="http://www.fixm.aero/base/4.2" schemaLocation="../../base/Base.xsd"/>
+	<xs:import namespace="http://www.fixm.aero/base/4.2" schemaLocation="../../base/Organization.xsd"/>
+	<xs:import namespace="http://www.fixm.aero/base/4.2" schemaLocation="../../base/Types.xsd"/>
 	<xs:include schemaLocation="../emergency/Emergency.xsd"/>
 	<xs:include schemaLocation="../aircraft/Aircraft.xsd"/>
-	<xs:complexType name="FlightType">
-		<xs:annotation>
-			<xs:documentation>This is the central object of the FIXM Logical Model. It groups all information about the flight. [FIXM]</xs:documentation>
-		</xs:annotation>
-		<xs:sequence>
-			<xs:element name="aircraft" type="fx:AircraftType" nillable="false" minOccurs="1" maxOccurs="1">
-				<xs:annotation>
-					<xs:documentation>Aircraft enabling the flight. [FIXM]</xs:documentation>
-				</xs:annotation>
-			</xs:element>
-			<xs:element name="emergency" type="fx:FlightEmergencyType" nillable="false" minOccurs="1" maxOccurs="1">
-				<xs:annotation>
-					<xs:documentation>Groups emergency information (description, phase, position, etc) for the flight.</xs:documentation>
-				</xs:annotation>
-			</xs:element>
-			<xs:element name="flightIdentification" type="fx:FlightIdentificationType" nillable="false" minOccurs="1" maxOccurs="1">
-				<xs:annotation>
-					<xs:documentation>A container of flight identifying data. [FIXM]</xs:documentation>
-				</xs:annotation>
-			</xs:element>
-			<xs:element name="operator" type="fb:AircraftOperatorType" nillable="false" minOccurs="1" maxOccurs="1">
-				<xs:annotation>
-					<xs:documentation>A person, organization or enterprise engaged in or offering to engage in an aircraft operation. [ICAO Annex 9]</xs:documentation>
-				</xs:annotation>
-			</xs:element>
-		</xs:sequence>
-	</xs:complexType>
 	<xs:complexType name="FlightIdentificationType">
 		<xs:annotation>
 			<xs:documentation>A container of flight identifying data. [FIXM]</xs:documentation>
 		</xs:annotation>
 		<xs:sequence>
-			<xs:element name="aircraftIdentification" type="fb:AircraftIdentificationType" nillable="false" minOccurs="1" maxOccurs="1">
+			<xs:element name="aircraftIdentification" type="fb:AircraftIdentificationType" minOccurs="1" maxOccurs="1" nillable="true">
 				<xs:annotation>
 					<xs:documentation>A group of letters, figures or a combination thereof which is either identical to, or the coded equivalent of, the aircraft call sign to be used in air-ground communications, and which is used to identify the aircraft in ground-ground air traffic services communications. [ICAO Doc 4444]</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="FlightType">
+		<xs:annotation>
+			<xs:documentation>This is the central object of the FIXM Logical Model. It groups all information about the flight. [FIXM]</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="aircraft" type="fx:AircraftType" minOccurs="0" maxOccurs="1" nillable="true"/>
+			<xs:element name="emergency" type="fx:FlightEmergencyType" minOccurs="0" maxOccurs="1" nillable="true"/>
+			<xs:element name="flightIdentification" type="fx:FlightIdentificationType" minOccurs="0" maxOccurs="1" nillable="true"/>
+			<xs:element name="operator" type="fb:AircraftOperatorType" minOccurs="0" maxOccurs="1" nillable="true">
+				<xs:annotation>
+					<xs:documentation>A person, organization or enterprise engaged in or offering to engage in an aircraft operation. [ICAO Annex 9]</xs:documentation>
 				</xs:annotation>
 			</xs:element>
 		</xs:sequence>
