@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<xs:schema targetNamespace="http://www.fixm.aero/base/4.2" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:fb="http://www.fixm.aero/base/4.2" elementFormDefault="qualified" version="4.2.0">
+<xs:schema targetNamespace="http://www.fixm.aero/flight/4.2" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:fx="http://www.fixm.aero/flight/4.2" xmlns:fb="http://www.fixm.aero/base/4.2" elementFormDefault="qualified" version="4.2.0">
 	<xs:annotation>
-		<xs:documentation>This package contains classes that model information about organizations including contact information. [FIXM]
+		<xs:documentation>The flight data package contains information describing all details associated with the flight. It is a central package of the FIXM model.
 
 =========================================== 
 Copyright (c) 2020 Airservices Australia, DSNA, EUROCONTROL, GCAA UAE, IATA, International Coordinating Council of Aerospace Industries Associations, JCAB, NATS Limited, NAV CANADA, SESAR Joint Undertaking and US FAA 
@@ -35,32 +35,33 @@ Details on the ICCAIA: www.iccaia.org
 Details on the SESAR JU and its members: http://www.sesarju.eu/discover-sesar/partnering-smarter-aviation/members 
 Details on the US FAA: http://www.faa.gov/ </xs:documentation>
 	</xs:annotation>
-	<xs:include schemaLocation="Types.xsd"/>
-	<xs:simpleType name="AircraftOperatorDesignatorType">
+	<xs:import namespace="http://www.fixm.aero/base/4.2" schemaLocation="../../base/Organization.xsd"/>
+	<xs:import namespace="http://www.fixm.aero/base/4.2" schemaLocation="../../base/Types.xsd"/>
+	<xs:include schemaLocation="../emergency/Emergency.xsd"/>
+	<xs:include schemaLocation="../aircraft/Aircraft.xsd"/>
+	<xs:complexType name="FlightIdentificationType">
 		<xs:annotation>
-			<xs:documentation>The identifier of the Aircraft Operator as assigned by ICAO. [FIXM] 
-This is the ICAO Operator Code as standardised by ICAO Doc 8585 Manual on Designators for Aircraft Operating Agencies, Aeronautical Authorities and Services.</xs:documentation>
-		</xs:annotation>
-		<xs:restriction base="fb:CharacterStringType">
-			<xs:pattern value="[A-Z]{3}"/>
-		</xs:restriction>
-	</xs:simpleType>
-	<xs:complexType name="AircraftOperatorType">
-		<xs:annotation>
-			<xs:documentation>A person, organization or enterprise engaged in or offering to engage in an aircraft operation. [ICAO Annex 9]</xs:documentation>
+			<xs:documentation>A container of flight identifying data. [FIXM]</xs:documentation>
 		</xs:annotation>
 		<xs:sequence>
-			<xs:element name="designatorIcao" type="fb:AircraftOperatorDesignatorType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="aircraftIdentification" type="fb:AircraftIdentificationType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>A group of letters, figures or a combination thereof which is either identical to, or the coded equivalent of, the aircraft call sign to be used in air-ground communications, and which is used to identify the aircraft in ground-ground air traffic services communications. [ICAO Doc 4444]</xs:documentation>
+				</xs:annotation>
+			</xs:element>
 		</xs:sequence>
 	</xs:complexType>
-	<xs:complexType name="PersonOrOrganizationType">
+	<xs:complexType name="FlightType">
 		<xs:annotation>
-			<xs:documentation>An identifiable, responsible entity that can be either a natural person or an organization.</xs:documentation>
+			<xs:documentation>This is the central object of the FIXM Logical Model. It groups all information about the flight. [FIXM]</xs:documentation>
 		</xs:annotation>
 		<xs:sequence>
-			<xs:element name="identifier" type="fb:CharacterStringType" minOccurs="1" maxOccurs="1">
+			<xs:element name="aircraft" type="fx:AircraftType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="emergency" type="fx:FlightEmergencyType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="flightIdentification" type="fx:FlightIdentificationType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="operator" type="fb:AircraftOperatorType" minOccurs="1" maxOccurs="1">
 				<xs:annotation>
-					<xs:documentation>A designator used for identifying the Person, State, Organization, Authority, aircraft operating agency, handling agency etc.  [FIXM]</xs:documentation>
+					<xs:documentation>A person, organization or enterprise engaged in or offering to engage in an aircraft operation. [ICAO Annex 9]</xs:documentation>
 				</xs:annotation>
 			</xs:element>
 		</xs:sequence>

@@ -1,12 +1,20 @@
 # Welcome to the LADR Schemas documentation
 
-The LADR Schemas documentation...
-
 ![Image](.//media/LADR_integration_with_Stakeholders.png)
 
-## Content
-...
-
+```mermaid
+    sequenceDiagram
+    autonumber
+    actor Contributor
+    participant LADR
+    actor User
+    Contributor->>LADR: LADR Event Upload Message
+    LADR->>Contributor: LADR Event Upload Validation Message
+    LADR->> User: LADR Event Notification Message
+    LADR->>User: LADR Event Message 
+    User->>LADR: Event Notification Acknowledgment Message       
+    User->>LADR: Event Validation Message
+```
 
 ## How to use this web site
 

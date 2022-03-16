@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<xs:schema targetNamespace="http://www.fixm.aero/base/4.2" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:fb="http://www.fixm.aero/base/4.2" elementFormDefault="qualified" version="4.2.0">
+<xs:schema targetNamespace="http://www.fixm.aero/flight/4.2" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:fx="http://www.fixm.aero/flight/4.2" elementFormDefault="qualified" version="4.2.0">
 	<xs:annotation>
-		<xs:documentation>This package contains classes that model information about organizations including contact information. [FIXM]
+		<xs:documentation>Contains all information about the flight. [FIXM]
 
 =========================================== 
 Copyright (c) 2020 Airservices Australia, DSNA, EUROCONTROL, GCAA UAE, IATA, International Coordinating Council of Aerospace Industries Associations, JCAB, NATS Limited, NAV CANADA, SESAR Joint Undertaking and US FAA 
@@ -35,34 +35,4 @@ Details on the ICCAIA: www.iccaia.org
 Details on the SESAR JU and its members: http://www.sesarju.eu/discover-sesar/partnering-smarter-aviation/members 
 Details on the US FAA: http://www.faa.gov/ </xs:documentation>
 	</xs:annotation>
-	<xs:include schemaLocation="Types.xsd"/>
-	<xs:simpleType name="AircraftOperatorDesignatorType">
-		<xs:annotation>
-			<xs:documentation>The identifier of the Aircraft Operator as assigned by ICAO. [FIXM] 
-This is the ICAO Operator Code as standardised by ICAO Doc 8585 Manual on Designators for Aircraft Operating Agencies, Aeronautical Authorities and Services.</xs:documentation>
-		</xs:annotation>
-		<xs:restriction base="fb:CharacterStringType">
-			<xs:pattern value="[A-Z]{3}"/>
-		</xs:restriction>
-	</xs:simpleType>
-	<xs:complexType name="AircraftOperatorType">
-		<xs:annotation>
-			<xs:documentation>A person, organization or enterprise engaged in or offering to engage in an aircraft operation. [ICAO Annex 9]</xs:documentation>
-		</xs:annotation>
-		<xs:sequence>
-			<xs:element name="designatorIcao" type="fb:AircraftOperatorDesignatorType" minOccurs="1" maxOccurs="1"/>
-		</xs:sequence>
-	</xs:complexType>
-	<xs:complexType name="PersonOrOrganizationType">
-		<xs:annotation>
-			<xs:documentation>An identifiable, responsible entity that can be either a natural person or an organization.</xs:documentation>
-		</xs:annotation>
-		<xs:sequence>
-			<xs:element name="identifier" type="fb:CharacterStringType" minOccurs="1" maxOccurs="1">
-				<xs:annotation>
-					<xs:documentation>A designator used for identifying the Person, State, Organization, Authority, aircraft operating agency, handling agency etc.  [FIXM]</xs:documentation>
-				</xs:annotation>
-			</xs:element>
-		</xs:sequence>
-	</xs:complexType>
 </xs:schema>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xs:schema targetNamespace="http://www.fixm.aero/base/4.2" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:fb="http://www.fixm.aero/base/4.2" elementFormDefault="qualified" version="4.2.0">
 	<xs:annotation>
-		<xs:documentation>This package contains classes that model information about organizations including contact information. [FIXM]
+		<xs:documentation>This package contains representations for basic numeric, temporal, and textual types. [FIXM]
 
 =========================================== 
 Copyright (c) 2020 Airservices Australia, DSNA, EUROCONTROL, GCAA UAE, IATA, International Coordinating Council of Aerospace Industries Associations, JCAB, NATS Limited, NAV CANADA, SESAR Joint Undertaking and US FAA 
@@ -35,34 +35,46 @@ Details on the ICCAIA: www.iccaia.org
 Details on the SESAR JU and its members: http://www.sesarju.eu/discover-sesar/partnering-smarter-aviation/members 
 Details on the US FAA: http://www.faa.gov/ </xs:documentation>
 	</xs:annotation>
-	<xs:include schemaLocation="Types.xsd"/>
-	<xs:simpleType name="AircraftOperatorDesignatorType">
+	<xs:simpleType name="CharacterStringType">
 		<xs:annotation>
-			<xs:documentation>The identifier of the Aircraft Operator as assigned by ICAO. [FIXM] 
-This is the ICAO Operator Code as standardised by ICAO Doc 8585 Manual on Designators for Aircraft Operating Agencies, Aeronautical Authorities and Services.</xs:documentation>
+			<xs:documentation>A sequence of characters [specialised from ISO19103, chapter 6.5.2.7]. 
+
+In FIXM, the maximum length of a CharacterString is set to 4096 characters. [FIXM]</xs:documentation>
 		</xs:annotation>
-		<xs:restriction base="fb:CharacterStringType">
-			<xs:pattern value="[A-Z]{3}"/>
+		<xs:restriction base="xs:string">
+			<xs:minLength value="0"/>
+			<xs:maxLength value="4096"/>
 		</xs:restriction>
 	</xs:simpleType>
-	<xs:complexType name="AircraftOperatorType">
+	<xs:simpleType name="RestrictedUniversallyUniqueIdentifierType">
 		<xs:annotation>
-			<xs:documentation>A person, organization or enterprise engaged in or offering to engage in an aircraft operation. [ICAO Annex 9]</xs:documentation>
+			<xs:documentation>Helper type for restrictions on UniversallyUniqueIdentifier</xs:documentation>
 		</xs:annotation>
-		<xs:sequence>
-			<xs:element name="designatorIcao" type="fb:AircraftOperatorDesignatorType" minOccurs="1" maxOccurs="1"/>
-		</xs:sequence>
-	</xs:complexType>
-	<xs:complexType name="PersonOrOrganizationType">
+		<xs:restriction base="fb:CharacterStringType">
+			<xs:pattern value="[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-4[a-fA-F0-9]{3}-[89abAB][a-fA-F0-9]{3}-[a-fA-F0-9]{12}"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="TimeType">
 		<xs:annotation>
-			<xs:documentation>An identifiable, responsible entity that can be either a natural person or an organization.</xs:documentation>
+			<xs:documentation>A combination of a date and a time type. [ISO 19103, chapter 6.5.2.10]
+A Time instant placeholder for gml:TimePositionType, in its XML dataTime variation. [FIXM]</xs:documentation>
 		</xs:annotation>
-		<xs:sequence>
-			<xs:element name="identifier" type="fb:CharacterStringType" minOccurs="1" maxOccurs="1">
-				<xs:annotation>
-					<xs:documentation>A designator used for identifying the Person, State, Organization, Authority, aircraft operating agency, handling agency etc.  [FIXM]</xs:documentation>
-				</xs:annotation>
-			</xs:element>
-		</xs:sequence>
+		<xs:restriction base="xs:dateTime">
+			<xs:pattern value="-?([1-9][0-9]{3,}|0[0-9]{3})-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])T(([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9](\.[0-9]+)?|(24:00:00(\.0+)?))Z"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="UniversallyUniqueIdentifierType">
+		<xs:annotation>
+			<xs:documentation>A 128-bit number used, with a high probability, to uniquely identify information in computer systems. [FIXM]</xs:documentation>
+		</xs:annotation>
+		<xs:simpleContent>
+			<xs:extension base="fb:RestrictedUniversallyUniqueIdentifierType">
+				<xs:attribute name="codeSpace" use="required" fixed="urn:uuid" type="xs:string">
+					<xs:annotation>
+						<xs:documentation>Code Space of the UUID</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+			</xs:extension>
+		</xs:simpleContent>
 	</xs:complexType>
 </xs:schema>

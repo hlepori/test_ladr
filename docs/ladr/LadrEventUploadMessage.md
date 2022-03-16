@@ -1,4 +1,4 @@
-# LADR Event Message
+# LADR Event Upload Message
 
 ```mermaid
     sequenceDiagram
@@ -6,19 +6,19 @@
     actor Contributor
     participant LADR
     actor User
+    rect rgb(255, 255, 0)
     Contributor->>LADR: LADR Event Upload Message
+    end
     LADR->>Contributor: LADR Event Upload Validation Message
     LADR->> User: LADR Event Notification Message
-    rect rgb(255, 255, 0)    
     LADR->>User: LADR Event Message 
-    end
     User->>LADR: Event Notification Acknowledgment Message       
     User->>LADR: Event Validation Message
 ```
 
 ## XML schema and samples
 
-- Go to [Schema definition](https://github.com/hlepori/test_ladr/tree/main/schemas/ladrEventMessage) on Github
+- Go to [Schema definition](https://github.com/hlepori/test_ladr/tree/main/schemas/ladrEventUploadMessage) on Github
 
 - Go to [XML examples](https://github.com/hlepori/test_ladr/tree/main/samples) on Github
 
@@ -31,10 +31,8 @@ class LadrMessage
 LadrMessage : + timestamp [1] Time	
 class LadrMessageType	
 <<LADR_Application>> LadrMessageType	
-LadrMessageType : LADR_EVENT_MESSAGE	
+LadrMessageType : LADR_EVENT_UPLOAD_MESSAGE	
 LadrMessageType <-- LadrMessage : +type [1]	
-LadrMessage : + uniqueMessageIdentifier [1] UniversallyUniqueIdentifier	
-LadrMessage : + receiptTime [1] Time	
 class Flight	
 <<FIXM_Core>> Flight	
 class AircraftOperator	
@@ -108,26 +106,6 @@ class FlightIdentification
 <<FIXM_Core>> FlightIdentification	
 FlightIdentification : + aircraftIdentification [0..1] AircraftIdentification	
 Flight --> FlightIdentification : +flightIdentification [0..1]	
-class RouteTrajectoryGroupContainer	
-<<FIXM_Core>> RouteTrajectoryGroupContainer	
-class RouteTrajectoryGroup	
-<<FIXM_Core>> RouteTrajectoryGroup	
-class RouteTrajectoryElement	
-<<FIXM_Core>> RouteTrajectoryElement	
-class TrajectoryPoint4D	
-<<FIXM_Core>> TrajectoryPoint4D	
-class GeographicalPosition	
-<<FIXM_Core>> GeographicalPosition	
-GeographicalPosition : + pos [1] LatLongPos	
-TrajectoryPoint4D --> GeographicalPosition : +position [1]	
-class TrajectoryPointProperty	
-<<FIXM_Core>> TrajectoryPointProperty	
-TrajectoryPointProperty : + description [0..1] CharacterString	
-TrajectoryPoint4D --> TrajectoryPointProperty : +pointProperty [0..*]	
-RouteTrajectoryElement --> TrajectoryPoint4D : +point4D [1]	
-RouteTrajectoryGroup --> RouteTrajectoryElement : +element [1..*]	
-RouteTrajectoryGroupContainer --> RouteTrajectoryGroup : +current [1]	
-Flight --> RouteTrajectoryGroupContainer : +routeTrajectoryGroup [1]	
 LadrMessage --> Flight : +flight [1]	
 class LadrEvent	
 <<LADR_Application>> LadrEvent	
@@ -136,18 +114,7 @@ class PersonOrOrganization
 PersonOrOrganization : + identifier [1] CharacterString	
 LadrEvent --> PersonOrOrganization : +contributorCode [1]	
 LadrEvent : + dataSource [1] CharacterString	
-LadrEvent : + adtActivationMethod [1] CharacterString	
-LadrEvent : + identifier [1] UniversallyUniqueIdentifier	
-class LadrDistressValidationCode	
-<<LADR_Application>> LadrDistressValidationCode	
-LadrDistressValidationCode : FALSE_ACTIVATION	
-LadrDistressValidationCode : GENUINE	
-LadrDistressValidationCode : UNDETERMINED	
-LadrEvent --> LadrDistressValidationCode : +distressValidationCode [1]	
-LadrEvent : + activationCodeInterpretation [0..1] CharacterString	
-LadrEvent : + eventTransittingFIRTime [0..1] Time	
-LadrEvent : + eventValidatedTime [0..1] Time	
-LadrEvent : + eventIssuedTime [0..1] Time	
+LadrEvent : + adtActivationMethod [0..1] CharacterString	
 LadrMessage --> LadrEvent : +ladrEvent [1]	
 ```
 
