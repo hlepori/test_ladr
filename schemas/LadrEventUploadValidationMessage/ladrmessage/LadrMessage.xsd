@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<xs:schema targetNamespace="http://www.eurocontrol.int/nm/fixm/app/ladr/1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ladr="http://www.eurocontrol.int/nm/fixm/app/ladr/1.0" xmlns:fb="http://www.fixm.aero/base/4.2" xmlns:fx="http://www.fixm.aero/flight/4.2" elementFormDefault="qualified" version="0.0.1">
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ladr="http://www.eurocontrol.int/nm/fixm/app/ladr/1.0" xmlns:fb="http://www.fixm.aero/base/4.2" xmlns:fx="http://www.fixm.aero/flight/4.2" targetNamespace="http://www.eurocontrol.int/nm/fixm/app/ladr/1.0" elementFormDefault="qualified" version="0.0.1">
 	<xs:annotation>
 		<xs:documentation>The profile corresponding to the LadrEventUploadValidationMessage. Copyright EUROCONTROL</xs:documentation>
 	</xs:annotation>
