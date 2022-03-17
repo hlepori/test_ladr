@@ -1,7 +1,5 @@
 # Welcome to the LADR Schemas documentation
 
-![Image](.//media/LADR_integration_with_Stakeholders.png)
-
 ```mermaid
     sequenceDiagram
     autonumber
@@ -10,7 +8,7 @@
     actor User
     Contributor->>LADR: LADR Event Upload Message
     LADR->>Contributor: LADR Event Upload Validation Message
-    LADR->> User: LADR Event Notification Message
+    LADR->>User: LADR Event Notification Message
     LADR->>User: LADR Event Message 
     User->>LADR: Event Notification Acknowledgment Message       
     User->>LADR: Event Validation Message
