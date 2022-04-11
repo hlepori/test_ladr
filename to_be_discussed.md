@@ -4,7 +4,12 @@
 
 ### Requirement
 
+ICAO doc 10150 does not require the messages sent to or from LADR tohave an identifier. However, it may be useful, e.g. for tracing purpos, that each LADR message has one. This would be similar to the ICAO FF-ICE concept, which specified  
+
 ### To be discussed
+
+In some prototype's samples, some LADR messages had a message number, expressed as an unsigned integer. 
+
 
 ---
 
