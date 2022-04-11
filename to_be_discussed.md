@@ -4,12 +4,62 @@
 
 ### Requirement
 
-ICAO doc 10150 does not require the messages sent to or from LADR tohave an identifier. However, it may be useful, e.g. for tracing purpos, that each LADR message has one. This would be similar to the ICAO FF-ICE concept, which specified  
+ICAO doc 10150 does not require the messages sent to or from LADR to have an identifier. However, it may be useful that the exchanged LADR messages have one, for tracing purposes, and/or so that a response message can indicate the message to which it is responding.
+
+Note: The ICAO FF-ICE concept has a requirement along these lines.
 
 ### To be discussed
 
-In some prototype's samples, some LADR messages had a message number, expressed as an unsigned integer. 
+In some prototype's samples, some LADR messages had a message number, expressed as an unsigned integer. It is understood that this field corresponds to the field MESSAGE NUMBER as standardised in the MCC standard interface. As LADR will centralise DistressEventUplaodMessages sent from multiple accredited LADR contributors, the risk exists of potential collisions between message identifiers sent by different sources (for instance two distinct LADR contributors using the same value "12345" for identifying to two distinct messages sent to the LADR). 
 
+To mitigate the risk, the use of UUIDs may be considered for identifying LADR messages. UUIDs are 128 bits values enabling distributed systems to uniquely identify something without significant central coordination and with confidence that the same identifier will never be unintentionally used by anyone for anything else. A UUID is meant to be universally unique, i.e. the probably of a duplicate identifier being generated within the IT universe is negligible for the foreseeable future. UUIDs are defined in IETF RFC 4122 and ISO/IEC 9834-8, the latter specifying robust UUID generation procedures.
+
+The ISO/IEC 9834 is already used in an Aviation/ATM context, with AIXM and FIXM using UUID v4.0 for uniquely identifying their respective features of interest. The FF-ICE message identifiers are also ISO UUID v4.
+
+An example of UUID v4 reads as follows: `282123e9-958a-4e99-a007-a0d838a148f0`
+
+Off-the-shelf libraries exist that support the generation of UUID v4. Online UUID v4 generation services also exist that can be leveraged (e.g. https://www.uuidgenerator.net/version4).
+
+It is proposed to reuse UUID v4 for identifying LADR messages. In the current LADR schemas, this is represented as follows:
+
+```xml
+<xs:complexType name="LadrApplicationMessageMetadataType">
+ <xs:sequence>
+  <xs:element name="identifier" type="ladr:UniversallyUniqueIdentifierType" minOccurs="1" maxOccurs="1"/>
+  <xs:element name="referencedMessageIdentifier" type="ladr:UniversallyUniqueIdentifierType" minOccurs="1" maxOccurs="1"/>
+<!-- [...] -->			
+<xs:complexType name="UniversallyUniqueIdentifierType">
+ <xs:simpleContent>
+  <xs:extension base="ladr:RestrictedUniversallyUniqueIdentifierType">
+   <xs:attribute name="codeSpace" use="required" fixed="urn:uuid" type="xs:string"/>
+<!-- [...] -->
+<xs:simpleType name="RestrictedUniversallyUniqueIdentifierType">
+ <xs:restriction base="xs:string">
+  <xs:pattern value="[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-4[a-fA-F0-9]{3}-[89abAB][a-fA-F0-9]{3}-[a-fA-F0-9]{12}"/> 
+<!-- [...] -->	 
+```
+
+As an example, a distress event upload message would read as follows:
+
+```xml
+<ladr:LadrApplicationMessage>
+ <ladr:metadata>
+  <ladr:identifier codeSpace="urn:uuid">eca23996-df29-4ee2-a886-bf8f150a75a4</ladr:identifier>
+  <ladr:type>DISTRESS_EVENT_UPLOAD_MESSAGE</ladr:type>	 
+```
+
+and the corresponding distress event upload validation message informing about the validity of the previous message would read as follows:
+
+```xml
+<ladr:LadrApplicationMessage>
+ <ladr:metadata>
+  <ladr:identifier codeSpace="urn:uuid">7f79eaf3-3053-48b6-b699-293d54ee0d67</ladr:identifier>
+  <ladr:referencedMessageIdentifier codeSpace="urn:uuid">eca23996-df29-4ee2-a886-bf8f150a75a4</ladr:referencedMessageIdentifier>
+```
+
+### Resolution
+
+> TODO
 
 ---
 
