@@ -53,8 +53,9 @@ and the corresponding distress event upload validation message informing about t
 ```xml
 <ladr:LadrApplicationMessage>
  <ladr:metadata>
-  <ladr:identifier codeSpace="urn:uuid">7f79eaf3-3053-48b6-b699-293d54ee0d67</ladr:identifier>
-  <ladr:referencedMessageIdentifier codeSpace="urn:uuid">eca23996-df29-4ee2-a886-bf8f150a75a4</ladr:referencedMessageIdentifier>
+  <ladr:identifier codeSpace="urn:uuid">7f79eaf3-3053-48b6-b699-293d54ee0d67</ladr:identifier>	 
+  <ladr:type>DISTRESS_EVENT_UPLOAD_VALIDATION_MESSAGE</ladr:type>	 
+  <ladr:referencedMessageIdentifier codeSpace="urn:uuid">eca23996-df29-4ee2-a886-bf8f150a75a4</ladr:referencedMessageIdentifier>	 
 ```
 
 ### Resolution
